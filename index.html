@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="shortcut icon" href="https://dl.dropboxusercontent.com/u/345322813/logos/Div6Logo_PNG_16x16.png" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
 <meta charset=utf-8 />
 <title>West Cuesta Ridge</title>
 <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
@@ -9,7 +11,23 @@
 <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.css' rel='stylesheet' />
 <style>
   body { margin:0; padding:0; }
-  #map { position:absolute; top:0; bottom:0; width:100%; }
+  #map { position:absolute; top:0; bottom:0; width:100%; 
+  }
+  .my-custom-control { background: url('https://dl.dropboxusercontent.com/u/345322813/logos/Div6Logo_PNG_original.png'); 
+background-size: 150px 150px;
+background-repeat: no-repeat;
+background-position: center;
+background-clip: border-box;
+transition: background-size 0.2s;
+-webkit-transition: background-size 0.2s;
+transition-timing-function: cubic-bezier(.05,1.2,.72,1.2);
+display: inline-block; 
+width: 200px; 
+height: 200px; 
+}
+.my-custom-control:hover {
+    background-size: 200px;
+}
 </style>
 </head>
 <body>
@@ -20,6 +38,25 @@
 var map = L.mapbox.map('map', 'slugis.g8ne0hp0', {
   closePopupOnClick:false
 }).setView([35.381, -120.674], 13);
+var MyControl = L.Control.extend({
+    options: {
+      position: 'bottomleft'
+    },
+
+      onAdd: function (map) {
+      // create the control container with a particular class name
+      // ** you can add the image to the div as a background image using css
+      var imageLink = document.createElement('a');
+          imageLink.href = 'http://slocountyfire.org/';
+      var container = L.DomUtil.create('div', 'my-custom-control');
+      imageLink.appendChild(container);
+
+      // ... initialize other DOM elements, add listeners, etc.
+      return imageLink;
+    }
+});
+
+map.addControl(new MyControl());
 
 // Generate a GeoJSON line. You could also load GeoJSON via AJAX
 // or generate it some other way.
@@ -66,7 +103,7 @@ function tick() {
 // start the animation
 tick();
 
-marker.bindPopup('<iframe src="//www.youtube.com/embed/2rCGRDdMWcs?autoplay=1" width="200" height="200" frameborder="0" volume="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen ></iframe>', {
+marker.bindPopup('<iframe src="https://www.youtube.com/embed/GYJ23Bf_zV0?autoplay=1" width="300" height="300" frameborder="0" volume="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen ></iframe>', {
   keepInView: false,
   autoPan: false,
   closeButton: false,
